@@ -1,0 +1,65 @@
+[gd_scene load_steps=9 format=3 uid="uid://cqu1qc5t7m2au"]
+
+[ext_resource type="Texture2D" uid="uid://ctvuejschumgx" path="res://art/tilemap-characters.png" id="1_4flbx"]
+[ext_resource type="Script" uid="uid://hcg8u8ttgs28" path="res://player.gd" id="1_onrkg"]
+[ext_resource type="Script" uid="uid://dop3xwjfqgmvs" path="res://animate.gd" id="3_i3pqv"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_n8qgj"]
+radius = 4.62963
+height = 11.8519
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hqtel"]
+atlas = ExtResource("1_4flbx")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_onrkg"]
+atlas = ExtResource("1_4flbx")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i3pqv"]
+atlas = ExtResource("1_4flbx")
+region = Rect2(25, 0, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hqtel"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hqtel")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_onrkg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i3pqv")
+}],
+"loop": true,
+"name": &"walking",
+"speed": 5.0
+}]
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+scale = Vector2(5.4, 5.4)
+script = ExtResource("1_onrkg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_n8qgj")
+one_way_collision_margin = 2.2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-5.96046e-08, 0)
+scale = Vector2(0.458333, 0.458333)
+sprite_frames = SubResource("SpriteFrames_hqtel")
+animation = &"walking"
+autoplay = "idle"
+script = ExtResource("3_i3pqv")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[connection signal="is_idle" from="." to="AnimatedSprite2D" method="_on_character_body_2d_is_idle"]
+[connection signal="is_moving" from="." to="AnimatedSprite2D" method="_on_character_body_2d_is_moving"]
