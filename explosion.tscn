@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bfvu1it3wjdsb"]
+
+[ext_resource type="Script" uid="uid://bvtmtu87y8jj8" path="res://explosion.gd" id="1_q7epf"]
+[ext_resource type="SpriteFrames" uid="uid://ccf65xum1qyw4" path="res://art/vfx.tres" id="1_vxas0"]
+
+[node name="Explosion" type="AnimatedSprite2D"]
+texture_filter = 1
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("1_vxas0")
+animation = &"explode"
+frame = 3
+frame_progress = 1.0
+script = ExtResource("1_q7epf")
